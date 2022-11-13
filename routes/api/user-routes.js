@@ -2,17 +2,18 @@ const router = require('express').Router();
 const {
 //  add user functions here
 getAllUsers,
-createUser
+createUser,
+getUserById
 } = require('../../controllers/user-controller');
 
 router
     .route('/')
-    .get(/* add user functions from schema here */)
+    .get(getAllUsers)
     .post(createUser)
 
 router
-    .route('/')
-    .get(getAllUsers)
+    .route('/:id')
+    .get(getUserById)
     .put()
     .delete();
 

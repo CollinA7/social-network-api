@@ -16,6 +16,20 @@ const userController = {
         });
     },
 
+    getUserById({ params }, res) {
+        User.findOne({ _id: params.id })
+        .populate({
+            path: 'thoughts',
+            select: '-__v'
+        })
+        .select('-__v')
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(400)
+        });
+    },
+
     createUser({ body }, res) {
         User.create(body)
         .then(dbUserData => res.json(dbUserData))
