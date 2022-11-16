@@ -1,5 +1,29 @@
-const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat')
+const { Schema, model, Types } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
+
+const ReactionSchema = new Schema(
+    {
+        reactionId: {
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId()
+        },
+        reactionBody: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            maxLength: 280
+        },
+        username: {
+            type: Schema.Types.String,
+            required: true
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: createdAtVal => dateFormat(createdAtVal)
+        }
+    }
+);
+
 const ThoughtSchema = new Schema(
     {
         thoughtText: {
@@ -14,11 +38,10 @@ const ThoughtSchema = new Schema(
             get: createdAtVal => dateFormat(createdAtVal)
         },
         username: {
-
+            type: String,
+            required: true
         },
-        reactions: {
-            // array of nested document
-        }
+        reactions: [ReactionSchema]
     },
     {
         toJSON: {
@@ -27,19 +50,10 @@ const ThoughtSchema = new Schema(
     }
 );
 
-const ReactionSchema = new Schema(
-    {
-
-    },
-    {
-
-    }
-);
-
 // virtual of reaction count that retrieves length of the thoughts reations array field on query {
 
 // }
 
-const Thought = model('Thought', ThoughtSchema);
+const Thought = model('Thoughts', ThoughtSchema);
 
 module.exports = Thought;
