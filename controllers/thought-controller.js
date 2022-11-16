@@ -11,6 +11,7 @@ const ThoughtController = {
             res.sendStatus(400);
         });
     },
+
     addThought({ params, body }, res) {
     Thought.create(body)
         .then(({ _id }) => {
@@ -29,6 +30,7 @@ const ThoughtController = {
         })
         .catch(err => console.log(err))
     },
+
     deleteThought({ params }, res) {
         Thought.findOneAndDelete({ _id: params.thoughtId })
         .then(deletedThought => {
@@ -49,7 +51,9 @@ const ThoughtController = {
             res.json(dbUserData);
         })
         .catch(err => res.json(err))
-    }
+    },
+
+    // addFriend({})
 };
 
 module.exports = ThoughtController;
