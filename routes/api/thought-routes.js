@@ -6,11 +6,12 @@ const {
 } = require('../../controllers/thought-controller')
 
 router
-    .route('/').get(getAllThoughts)
+    .route('/')
+    .get(getAllThoughts)
+    .post(addThought)
 
 router
     .route('/:thoughtId')
-    .put(addThought)
     .delete(deleteThought)
 
 // add custom routes for the thoughts to address users
