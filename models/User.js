@@ -38,11 +38,8 @@ const UserSchema = new Schema(
 );
 
 // add virtual function meat and potatoes
-UserSchema.virtual('commentCount').get(function() {
-    // return this./    /.reduce(
-        // (total, /    /) => total + /    / + 1.
-        // 0
-    // );
+UserSchema.virtual('friendCount').get(function() {
+    return this.friends.length
 })
 
 const User = model('User', UserSchema);
